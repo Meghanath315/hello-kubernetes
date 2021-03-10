@@ -1,0 +1,64 @@
+pipeline
+{
+    agent any
+    parameters
+    {
+        choice (name: 'env_name',choices: "dev\nqa",description: 'for deployment')
+    }
+    stages
+    {
+        stage ('git checkout')
+        {
+            steps
+            {
+                git 'https://github.com/Meghanath315/test123.git'
+            }
+        }
+    
+        stage ('build docker image')
+        {
+            steps
+            {
+                withDockerRegistry(credentialsId: 'docker-hub-pwd1', url: 'https://index.docker.io/v1/')
+                {
+                sh 'docker build -t meghanath/test1:2 -f Dockerfile .'
+                sh 'docker push meghanath/test1:2'
+                }
+            }
+            
+        } 
+        stage ('ansible playbook for dev')
+        {
+            steps
+            {
+                script
+                {
+                   if("${params.env_name}" == "dev")
+             
+                  {
+                    ansiblePlaybook credentialsId: 'ans-cl-crds', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/var/lib/jenkins/workspace/test/app-qa.yml', skippedTags: 'qa'
+                  }
+                  
+                }
+                
+            }
+        }
+        stage ('ansible playbook for qa')
+        {
+            steps
+            {
+                script
+                {
+                   if("${params.env_name}" == "qa")
+                   
+                {
+                   ansiblePlaybook credentialsId: 'ans-cl-crds', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/var/lib/jenkins/workspace/test/app-qa.yml', skippedTags: 'dev'
+            
+                }
+                
+                }
+            }
+        }
+        
+    }
+}
