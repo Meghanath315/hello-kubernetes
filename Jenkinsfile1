@@ -11,7 +11,7 @@ pipeline
         {
             steps
             {
-                git 'https://github.com/Meghanath315/test123.git'
+                git 'https://github.com/Meghanath315/hello-kubernetes.git'
             }
         }
     
@@ -21,8 +21,8 @@ pipeline
             {
                 withDockerRegistry(credentialsId: 'docker-hub-pwd1', url: 'https://index.docker.io/v1/')
                 {
-                sh 'docker build -t meghanath/test1:2 -f Dockerfile .'
-                sh 'docker push meghanath/test1:2'
+                sh 'docker build -t meghanath315/build-v${BUILD_NUMBER} -f Dockerfile .'
+                sh 'docker push meghanath315/build-v${BUILD_NUMBER}'
                 }
             }
             
