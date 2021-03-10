@@ -36,7 +36,7 @@ pipeline
                    if("${params.env_name}" == "dev")
              
                   {
-                    ansiblePlaybook credentialsId: 'ans-cl-crds', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/var/lib/jenkins/workspace/test/app-qa.yml', skippedTags: 'qa'
+                    ansiblePlaybook credentialsId: 'ans-cl-crds', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/var/lib/jenkins/workspace/hi/app-qa.yml', skippedTags: 'qa'
                   }
                   
                 }
@@ -52,7 +52,7 @@ pipeline
                    if("${params.env_name}" == "qa")
                    
                 {
-                   ansiblePlaybook credentialsId: 'ans-cl-crds', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/var/lib/jenkins/workspace/test/app-qa.yml', skippedTags: 'dev'
+                   ansiblePlaybook credentialsId: 'ans-cl-crds', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/var/lib/jenkins/workspace/hi/app-qa.yml', skippedTags: 'dev'
             
                 }
                 
