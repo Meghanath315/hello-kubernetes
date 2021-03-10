@@ -21,8 +21,8 @@ pipeline
             {
                 withDockerRegistry(credentialsId: 'docker-hub-pwd1', url: 'https://index.docker.io/v1/')
                 {
-                sh 'docker build -t meghanath315/build-v${BUILD_NUMBER} -f Dockerfile .'
-                sh 'docker push meghanath315/build-v${BUILD_NUMBER}'
+                sh 'docker build -t meghanath315/img:1 -f Dockerfile .'
+                sh 'docker push meghanath315/img:1'
                 }
             }
             
