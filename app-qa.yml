@@ -1,0 +1,23 @@
+---
+
+ - hosts: dev
+   tags: dev
+   tasks:
+   - name: pull the docker image
+     raw: docker pull meghanath315/build-v${BUILD_NUMBER}
+   - name: remove the docker container
+     raw: docker rm -f c1
+     ignore_errors: true
+   - name: spinnup the docker container
+     raw: sudo sed -i 's/latest/build-v${BUILD_NUMBER}/g' deployment.yaml && kubectl apply -f deployment.yml
+
+ - hosts: qa
+   tags: qa
+   tasks:
+   - name: pull the docker image
+     raw: docker pull meghanath315/anji1:1
+   - name: remove the docker container
+     raw: docker rm -f c1
+     ignore_errors: true
+   - name: pull the docker image
+     raw: docker run -dti --name c1 -p 80:80 meghanath315/anji1:1 /bin/bash
