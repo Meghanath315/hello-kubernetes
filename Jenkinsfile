@@ -13,7 +13,7 @@ node {
         /* To builds the dockerimage */
         //update your ECR registry URI
        //me  app = docker.build("843554782143.dkr.ecr.ap-south-1.amazonaws.com/ischool-ui")
-       sh 'sudo docker build -t 843554782143.dkr.ecr.ap-south-1.amazonaws.com/test:build-v${BUILD_NUMBER} .'
+       sh 'sudo docker build -t meghanath315/build-v${BUILD_NUMBER} .'
     }
 
 
@@ -25,7 +25,7 @@ node {
             //app.push("${env.BUILD_NUMBER}")
         //    app.push("latest")
         //}
-        sh 'sudo docker push 843554782143.dkr.ecr.ap-south-1.amazonaws.com/test:build-v${BUILD_NUMBER}'
+        sh 'sudo docker push meghanath315/build-v${BUILD_NUMBER}'
     }
 
 
