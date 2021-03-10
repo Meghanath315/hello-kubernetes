@@ -4,12 +4,12 @@
    tags: dev
    tasks:
    - name: pull the docker image
-     raw: docker pull meghanath315/build-v${BUILD_NUMBER}
+     raw: docker pull meghanath315/img:1
    - name: remove the docker container
      raw: docker rm -f c1
      ignore_errors: true
    - name: spinnup the docker container
-     raw: sudo sed -i 's/latest/build-v${BUILD_NUMBER}/g' deployment.yaml && kubectl apply -f deployment.yml
+     raw: sudo sed -i 's/latest/img:1/g' deployment.yaml && kubectl apply -f deployment.yml
 
  - hosts: qa
    tags: qa
